@@ -1,0 +1,1 @@
+This is the sitecore datafolder with licentie file and package directory

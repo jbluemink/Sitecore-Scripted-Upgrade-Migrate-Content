@@ -1,0 +1,15 @@
+echo start upgrade710after
+copy "files710\FieldTypes.config" "website\App_Config\"
+copy "files710\Sitecore.Buckets.config" "website\App_Config\include\"
+copy "files710\Sitecore.AntiCsrf.config" "website\App_Config\include\"
+copy "files710\Sitecore.ContentSearch.config" "website\App_Config\include\"
+copy "files710\Sitecore.ContentSearch.Lucene.DefaultIndexConfiguration.config" "website\App_Config\include\"
+copy "files710\Sitecore.ContentSearch.Lucene.Index.Core.config" "website\App_Config\include\"
+copy "files710\Sitecore.ContentSearch.Lucene.Index.Master.config" "website\App_Config\include\"
+copy "files710\Sitecore.ContentSearch.Lucene.Index.Web.config" "website\App_Config\include\"
+copy "files710\Sitecore.ContentSearch.Solr.Indexes.config" "website\App_Config\include\"
+copy "files710\Sitecore.Mvc.config" "website\App_Config\include\"
+del "website\App_Config\Prefetch\web.config"
+copy "files710\Webdb.config" "website\App_Config\Prefetch\"
+copy "files710\Web.config" "website\"
+

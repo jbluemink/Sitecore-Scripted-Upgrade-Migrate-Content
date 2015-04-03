@@ -1,0 +1,17 @@
+echo start upgrade720after
+copy "files720\Commands.config" "website\App_Config\"
+copy "files720\Sitecore.Analytics.config" "website\App_Config\include\"
+copy "files720\Sitecore.Buckets.config" "website\App_Config\include\"
+copy "files720\Sitecore.AntiCsrf.config" "website\App_Config\include\"
+copy "files720\Sitecore.ContentSearch.config" "website\App_Config\include\"
+copy "files720\Sitecore.ContentSearch.Lucene.DefaultIndexConfiguration.config" "website\App_Config\include\"
+copy "files720\Sitecore.ContentSearch.Lucene.Index.Core.config" "website\App_Config\include\"
+copy "files720\Sitecore.ContentSearch.Lucene.Index.Master.config" "website\App_Config\include\"
+copy "files720\Sitecore.ContentSearch.Lucene.Index.Web.config" "website\App_Config\include\"
+copy "files720\Sitecore.ContentSearch.Solr.Indexes.config" "website\App_Config\include\"
+copy "files720\Sitecore.ContentSearch.Lucene.Indexes.Sharded.*.example" "website\App_Config\include\"
+copy "files720\Sitecore.Speak.config" "website\App_Config\include\"
+copy "files720\Configuration.config" "website\sitecore\shell\Applications\Reports\Dashboard\"
+copy "files720\Global.asax" "website\"
+copy "files720\Web.config" "website\"
+
