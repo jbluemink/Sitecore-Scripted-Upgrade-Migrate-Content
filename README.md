@@ -33,8 +33,9 @@ Or you choose to follow the upgrade path descripe by every Sitecore upgrade. Tha
 - Execute the runall.bat
 - Backup the master en core
 - Restore the master en core on your new Sitecore 7.5
-- Make sure all files of the modules are there
+- Make sure all files of the installed modules are on the Sitecore 7.5
+- Make sure all your custom files and config are on the Sitecore 7.5
 
 ##Notes
 - With a local Database you get the best performance, 25 minutes for a 6.5 to 7.5 migration is possible. (2GB master database, i7, 16GB, SSD)
-- for now this has scripts for 6.5 to 7.5 but easy to adjust and add or remove some versons.
+- For now this has scripts for 6.5 to 7.5 but easy to adjust and add or remove some versons.
