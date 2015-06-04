@@ -6,12 +6,14 @@
 <%@ Import Namespace="Sitecore.Data.Engines" %>
 <%@ Import Namespace="Sitecore.Data.Proxies" %>
 <%@ Import Namespace="Sitecore.SecurityModel" %>
-<%@ Import Namespace="Sitecore.Update" %>
 <%@ Import Namespace="Sitecore.Update.Installer" %>
+<%@ Import Namespace="Sitecore.Update.Installer.Utils" %>
+<%@ Import Namespace="Sitecore.Update" %>
+<%@ Import Namespace="Sitecore.Update.Metadata" %>
+<%@ Import Namespace="Sitecore.Update.Utils" %>
 <%@ Import Namespace="Sitecore.Update.Installer.Exceptions" %>
 <%@ Import Namespace="Sitecore.Update.Installer.Installer.Utils" %>
-<%@ Import Namespace="Sitecore.Update.Installer.Utils" %>
-<%@ Import Namespace="Sitecore.Update.Utils" %>
+
 
 <%@ Language=C# %>
 <HTML>
@@ -36,41 +38,28 @@
       }
     }
 
-    protected static string Install(string package)
+    public static string Install(string path)
     {
-      var log = LogManager.GetLogger("LogFileAppender");
-      string result;
-      using (new ShutdownGuard())
-      {
-        var installationInfo = new PackageInstallationInfo
-        {
-          Action = UpgradeAction.Upgrade,
-          Mode = InstallMode.Install,
-          Path = package
-        };
-        string text = null;
-        List<ContingencyEntry> entries = null;
-        try
-        {
-          entries = UpdateHelper.Install(installationInfo, log, out text);
-        }
-        catch (PostStepInstallerException ex)
-        {
-          entries = ex.Entries;
-          text = ex.HistoryPath;
-          throw;
-        }
-        finally
-        {
-          UpdateHelper.SaveInstallationMessages(entries, text);
-        }
+	bool hasPostAction;
+	string historyPath;
+	string result= "";
 
-        result = text;
-      }
+	var log = LogManager.GetLogger("LogFileAppender");
+	using (new ShutdownGuard())
+	{
+		DiffInstaller installer = new DiffInstaller(UpgradeAction.Upgrade);
+		MetadataView view = UpdateHelper.LoadMetadata(path);
 
-      return result;
+		//Get the package entries
+		List<ContingencyEntry> entries = installer.InstallPackage(path, InstallMode.Install, log, out hasPostAction, out historyPath);
+
+		installer.ExecutePostInstallationInstructions(path, historyPath, InstallMode.Install, view, log, ref entries);
+
+		UpdateHelper.SaveInstallationMessages(entries, historyPath);
+	}
+	return result;
     }
-    
+        
     protected String GetTime()
     {
         return DateTime.Now.ToString("t");
@@ -79,7 +68,7 @@
    <body>
       <form id="MyForm" runat="server">
 	<div>This page installs packages from \sitecore\admin\Packages folder.</div>
-	Current server time is <% =GetTime()%>
+	Current server time is <% =GetTime()%><br.>
       </form>
    </body>
 </HTML>
